@@ -1,0 +1,992 @@
+:root {
+  --rx: 0deg;
+  --ry: 0deg;
+  --tx: 0px;
+  --ty: 0px;
+  
+  /* Colori Barca */
+  --barca-blue: #004d98;
+  --barca-red: #a50044;
+  --barca-gold: #edbb00;
+}
+
+/* Reset base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a0a1a 0%, #050510 50%, #000 100%);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+/* Container principale verticale */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== SEZIONE LETTERA ===== */
+.letter-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  position: relative;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(0, 77, 152, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(165, 0, 68, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a1a 0%, #050510 100%);
+}
+
+.letter-container {
+  max-width: 680px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+.letter-content {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.letter-content p {
+  margin-bottom: 1.2em;
+}
+
+.letter-greeting {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--barca-gold);
+  margin-bottom: 1.5em !important;
+}
+
+.letter-break {
+  margin-top: 2em !important;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.letter-highlight {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+  padding: 20px 0;
+  border-top: 1px solid rgba(237, 187, 0, 0.25);
+  border-bottom: 1px solid rgba(237, 187, 0, 0.25);
+  margin: 1.5em 0 !important;
+}
+
+.letter-closing {
+  margin-top: 2em !important;
+}
+
+.letter-signature {
+  font-size: 2rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--barca-gold);
+  margin-top: 0.5em !important;
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: float 2s ease-in-out infinite;
+}
+
+.scroll-arrow {
+  width: 28px;
+  height: 28px;
+  color: var(--barca-gold);
+  opacity: 0.7;
+}
+
+.scroll-arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ===== SEZIONE TICKET ===== */
+.ticket-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  min-height: 100vh;
+}
+
+/* Scena 3D */
+.scene {
+  width: min(950px, calc(100vw - 40px));
+  max-width: 95vw;
+  perspective: 1400px;
+  padding: 0 10px;
+}
+
+/* Biglietto */
+.ticket {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  border-radius: 20px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry)) translate3d(0, 0, 0);
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  cursor: pointer;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* Layer base con effetto olografico - colori Barca */
+.ticket::before,
+.ticket::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Gradiento base multi-colore Barca */
+.ticket::before {
+  background:
+    linear-gradient(135deg, rgba(0, 77, 152, 0.15), rgba(165, 0, 68, 0.25)),
+    radial-gradient(circle at 0% 0%, rgba(237, 187, 0, 0.2), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(165, 0, 68, 0.3), transparent 55%);
+  opacity: 0.9;
+}
+
+/* Pattern olografico animato - colori Barca */
+.ticket::after {
+  background:
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    conic-gradient(
+      from 0deg,
+      rgba(0, 77, 152, 0.3),
+      rgba(165, 0, 68, 0.4),
+      rgba(237, 187, 0, 0.35),
+      rgba(0, 77, 152, 0.3)
+    );
+  background-size: 200% 200%, 300% 300%;
+  animation: holo-shift 10s linear infinite;
+  mix-blend-mode: color-dodge;
+  opacity: 0.55;
+}
+
+/* Contenuto del biglietto - layout grid con barcode laterale */
+.ticket-inner {
+  position: relative;
+  inset: 0;
+  margin: 2px;
+  height: calc(100% - 4px);
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  overflow: hidden;
+}
+
+/* Sfondo tema centrato su tutto il biglietto */
+.ticket-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+    url("img/theme_1.jpg") center / cover no-repeat;
+  z-index: 0;
+}
+
+/* Sezione Barcode Laterale Sinistra */
+.barcode-side-panel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 4px;
+  background: #ffffff;
+  border-right: 1px dashed rgba(0, 0, 0, 0.2);
+}
+
+/* Corpo Principale del Biglietto */
+.ticket-main-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header strip Barca */
+.ticket-header-strip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, var(--barca-blue) 0%, var(--barca-red) 60%, var(--barca-blue) 100%);
+  gap: 14px;
+}
+
+.header-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.header-title {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #fff;
+}
+
+.header-motto {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.header-season {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.season-label {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.season-year {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Info strip */
+.ticket-info-strip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.stadium-info {
+  color: #fff;
+  font-weight: 600;
+}
+
+.separator {
+  color: var(--barca-gold);
+}
+
+.league-info {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Sezione squadre - centrata nel corpo principale */
+.teams-section {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  flex: 1;
+  gap: 12px;
+}
+
+.team-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+  flex-shrink: 0;
+}
+
+.teams-names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.team-name {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.home-name {
+  text-align: right;
+}
+
+.away-name {
+  text-align: left;
+}
+
+.vs-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 
+    0 4px 20px rgba(165, 0, 68, 0.5),
+    0 0 0 2px rgba(237, 187, 0, 0.3);
+}
+
+/* Griglia dettagli con fade */
+.ticket-details-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 14px 20px;
+  background: linear-gradient(180deg, 
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 20%,
+    rgba(0, 0, 0, 0.35) 50%,
+    rgba(0, 0, 0, 0.25) 80%,
+    transparent 100%
+  );
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.detail-item.highlight {
+  background: linear-gradient(135deg, rgba(237, 187, 0, 0.12), rgba(165, 0, 68, 0.08));
+  border-color: rgba(237, 187, 0, 0.25);
+}
+
+.detail-label {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Barra sponsor dorata */
+.sponsors-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, 
+    #b8860b 0%,
+    #daa520 15%,
+    #ffd700 35%,
+    #ffec8b 50%,
+    #ffd700 65%,
+    #daa520 85%,
+    #b8860b 100%
+  );
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    0 0 40px rgba(255, 215, 0, 0.15);
+  overflow: hidden;
+}
+
+/* Effetto shine animato sulla barra */
+.sponsors-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.4) 40%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.4) 60%,
+    transparent 80%
+  );
+  animation: gold-shine 4s ease-in-out infinite;
+}
+
+@keyframes gold-shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.sponsor-logo {
+  position: relative;
+  z-index: 1;
+  height: 18px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) sepia(1) saturate(0) brightness(0.25);
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.sponsor-logo:hover {
+  opacity: 1;
+}
+
+.sponsor-logo.nike {
+  height: 20px;
+}
+
+.sponsor-logo.spotify {
+  height: 18px;
+}
+
+.sponsor-logo.laliga {
+  height: 24px;
+}
+
+/* Badge olografico */
+.ticket-main-body .holo-badge {
+  position: absolute;
+  right: 14px;
+  bottom: 65px;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.badge-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(0, 77, 152, 0.6),
+      rgba(165, 0, 68, 0.8),
+      rgba(237, 187, 0, 0.8),
+      rgba(0, 77, 152, 0.6)
+    );
+  filter: blur(0.2px);
+  animation: holo-ring 6s linear infinite;
+}
+
+.badge-inner::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(10, 10, 30, 0.92), rgba(5, 5, 20, 0.98));
+}
+
+.badge-ring {
+  position: absolute;
+  inset: 6%;
+  border-radius: inherit;
+  border: 2px solid rgba(237, 187, 0, 0.8);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+
+.badge-center {
+  position: absolute;
+  inset: 18%;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.badge-top {
+  opacity: 0.9;
+  font-size: 0.45rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.badge-mid {
+  font-weight: 800;
+  font-size: 0.7rem;
+  margin: 2px 0;
+  color: var(--barca-gold);
+  text-shadow: 0 0 8px rgba(237, 187, 0, 0.5);
+}
+
+.badge-bottom {
+  font-size: 0.4rem;
+  opacity: 0.85;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Barcode laterale verticale nella sezione dedicata */
+.barcode-side-panel .side-barcode {
+  width: 40px;
+  flex: 1;
+  min-height: 200px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  padding: 4px;
+  align-self: stretch;
+}
+
+/* Barre realistiche del barcode */
+.barcode-side-panel .side-barcode::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      #000 0px, #000 2px,
+      #fff 2px, #fff 3px,
+      #000 3px, #000 4px,
+      #fff 4px, #fff 7px,
+      #000 7px, #000 9px,
+      #fff 9px, #fff 10px,
+      #000 10px, #000 11px,
+      #fff 11px, #fff 14px,
+      #000 14px, #000 17px,
+      #fff 17px, #fff 18px,
+      #000 18px, #000 19px,
+      #fff 19px, #fff 22px,
+      #000 22px, #000 24px,
+      #fff 24px, #fff 26px,
+      #000 26px, #000 28px,
+      #fff 28px, #fff 30px,
+      #000 30px, #000 31px,
+      #fff 31px, #fff 34px,
+      #000 34px, #000 37px,
+      #fff 37px, #fff 38px,
+      #000 38px, #000 40px,
+      #fff 40px, #fff 42px,
+      #000 42px, #000 44px,
+      #fff 44px, #fff 47px,
+      #000 47px, #000 49px,
+      #fff 49px, #fff 50px,
+      #000 50px, #000 52px,
+      #fff 52px, #fff 55px,
+      #000 55px, #000 58px,
+      #fff 58px, #fff 59px,
+      #000 59px, #000 61px,
+      #fff 61px, #fff 64px,
+      #000 64px, #000 66px,
+      #fff 66px, #fff 68px,
+      #000 68px, #000 70px,
+      #fff 70px, #fff 72px,
+      #000 72px, #000 74px,
+      #fff 74px, #fff 76px,
+      #000 76px, #000 78px,
+      #fff 78px, #fff 80px,
+      #000 80px, #000 82px
+    );
+}
+
+/* Effetto shine sul barcode */
+.barcode-side-panel .side-barcode::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    160deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.6) 48%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.6) 52%,
+    transparent 70%
+  );
+  animation: barcode-shine 4s ease-in-out infinite;
+}
+
+.barcode-side-panel .ticket-code {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.4rem;
+  letter-spacing: 0.1em;
+  color: #000000;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
+
+/* Glow all around su hover - colori Barca */
+.ticket:hover {
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.95),
+    0 0 32px rgba(0, 77, 152, 0.4),
+    0 0 46px rgba(165, 0, 68, 0.5);
+}
+
+/* ===== SEZIONE STADIO ===== */
+.stadium-section {
+  position: relative;
+  min-height: 450px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.stadium-image-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.stadium-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.stadium-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(180deg, 
+      rgba(5, 5, 16, 1) 0%,
+      rgba(5, 5, 16, 0.85) 10%,
+      rgba(5, 5, 16, 0.4) 35%,
+      rgba(0, 0, 0, 0.3) 100%
+    ),
+    linear-gradient(0deg,
+      rgba(0, 77, 152, 0.15) 0%,
+      transparent 50%
+    );
+}
+
+.stadium-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  min-height: 450px;
+  padding: 40px 20px 80px;
+  text-align: center;
+}
+
+.stadium-icon {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 12px;
+  color: var(--barca-gold);
+  filter: drop-shadow(0 4px 12px rgba(237, 187, 0, 0.4));
+}
+
+.stadium-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.stadium-name {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  margin-bottom: 8px;
+}
+
+.stadium-address {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 400px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stadium-address span {
+  display: block;
+}
+
+/* Responsiveness */
+@media (max-width: 800px) {
+  .letter-content {
+    font-size: 1.2rem;
+  }
+
+  .letter-greeting {
+    font-size: 1.8rem;
+  }
+
+  .letter-highlight {
+    font-size: 1.25rem;
+  }
+
+  .ticket-section {
+    padding: 40px 15px;
+  }
+
+  .scene {
+    width: calc(100vw - 30px);
+    padding: 0;
+  }
+
+  .ticket-inner {
+    grid-template-columns: 50px 1fr;
+  }
+
+  .barcode-side-panel {
+    padding: 15px 4px;
+    gap: 6px;
+  }
+
+  .barcode-side-panel .side-barcode {
+    width: 28px;
+    min-height: 150px;
+  }
+
+  .barcode-side-panel .ticket-code {
+    font-size: 0.35rem;
+  }
+
+  .ticket-header-strip {
+    padding: 10px 12px;
+  }
+
+  .header-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header-title {
+    font-size: 0.85rem;
+  }
+
+  .header-motto {
+    font-size: 0.7rem;
+  }
+
+  .ticket-info-strip {
+    padding: 6px 12px;
+    font-size: 0.65rem;
+  }
+
+  .teams-section {
+    padding: 12px 10px;
+    gap: 8px;
+  }
+
+  .team-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .teams-names {
+    gap: 6px;
+  }
+
+  .team-name {
+    font-size: 0.7rem;
+  }
+
+  .vs-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 0.55rem;
+  }
+
+  .ticket-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .detail-item {
+    padding: 6px 8px;
+  }
+
+  .detail-label {
+    font-size: 0.5rem;
+  }
+
+  .detail-value {
+    font-size: 0.75rem;
+  }
+
+  .sponsors-bar {
+    gap: 16px;
+    padding: 10px 12px;
+  }
+
+  .sponsor-logo {
+    height: 12px;
+  }
+
+  .sponsor-logo.nike {
+    height: 14px;
+  }
+
+  .sponsor-logo.laliga {
+    height: 16px;
+  }
+
+  .ticket-main-body .holo-badge {
+    width: 55px;
+    height: 55px;
+    right: 8px;
+    bottom: 50px;
+  }
+
+  .badge-center {
+    font-size: 0.35rem;
+  }
+
+  .badge-mid {
+    font-size: 0.5rem;
+  }
+
+  .stadium-section {
+    min-height: 350px;
+    margin-top: 15px;
+  }
+
+  .stadium-content {
+    min-height: 350px;
+    padding: 35px 20px 60px;
+  }
+
+  .stadium-name {
+    font-size: 1.4rem;
+  }
+
+  .stadium-address {
+    font-size: 0.9rem;
+  }
+}
+
+/* Animazioni */
+@keyframes holo-shift {
+  0% {
+    background-position: 0% 20%, 0% 50%;
+  }
+  50% {
+    background-position: 100% 80%, 80% 0%;
+  }
+  100% {
+    background-position: 0% 20%, 0% 50%;
+  }
+}
+
+@keyframes barcode-shine {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes holo-ring {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(360deg) translate3d(0, 0, 0);
+  }
+}
