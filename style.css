@@ -263,7 +263,9 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 20px;
-  background: linear-gradient(90deg, var(--barca-blue) 0%, var(--barca-red) 60%, var(--barca-blue) 100%);
+  background: 
+    linear-gradient(90deg, rgba(0, 77, 152, 0.85), rgba(165, 0, 68, 0.85)),
+    url("img/top_background.png") center / cover no-repeat;
   gap: 14px;
 }
 
@@ -338,11 +340,11 @@ body {
   inset: 0;
   background: linear-gradient(
     180deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.35) 30%,
-    rgba(0, 0, 0, 0.45) 50%,
-    rgba(0, 0, 0, 0.35) 70%,
-    transparent 100%
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.45) 25%,
+    rgba(0, 0, 0, 0.62) 50%,
+    rgba(0, 0, 0, 0.45) 75%,
+    rgba(0, 0, 0, 0) 100%
   );
   z-index: 0;
   pointer-events: none;
@@ -367,19 +369,36 @@ body {
   z-index: 1;
 }
 
-/* Logo LaLiga nel corpo */
+/* Logo LaLiga nel corpo (simmetrico al badge olografico) */
 .liga-body-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 20px 0 20px;
-  opacity: 0.9;
+  position: absolute;
+  left: 16px;
+  top: 118px;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 0 12px rgba(255, 255, 255, 0.3),
+    0 8px 18px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  overflow: hidden;
+}
+.liga-body-logo::after {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
 }
 .liga-body-logo img {
-  height: 20px;
-  width: auto;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
-  filter: brightness(0) invert(1) opacity(0.9);
+  filter: brightness(0) invert(1);
+  z-index: 1;
 }
 
 /* Sezione squadre - centrata nel corpo principale */
@@ -801,7 +820,7 @@ body {
   min-height: 450px;
   padding: 30px 20px 80px;
   text-align: center;
-  transform: translateY(-35px); /* pin più alto sopra l'immagine */
+  transform: translateY(-55px); /* pin più alto sopra l'immagine */
 }
 
 .stadium-icon {
@@ -969,7 +988,19 @@ body {
     width: 55px;
     height: 55px;
     right: 8px;
-    bottom: 50px;
+    top: 105px;
+  }
+
+  .liga-body-logo {
+    width: 55px;
+    height: 55px;
+    left: 8px;
+    top: 105px;
+  }
+
+  .liga-body-logo img {
+    width: 32px;
+    height: 32px;
   }
 
   .badge-center {
