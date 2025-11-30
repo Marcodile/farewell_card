@@ -776,9 +776,10 @@ body {
 /* ===== SEZIONE STADIO ===== */
 .stadium-section {
   position: relative;
-  min-height: 450px;
-  overflow: hidden;
+  min-height: 500px;
+  overflow: visible;
   margin-top: 20px;
+  padding-bottom: 40px;
 }
 
 .stadium-image-wrapper {
@@ -818,9 +819,8 @@ body {
   justify-content: flex-start;
   height: 100%;
   min-height: 450px;
-  padding: 30px 20px 80px;
+  padding: 50px 20px 100px;
   text-align: center;
-  transform: translateY(-55px); /* pin più alto sopra l'immagine */
 }
 
 .stadium-icon {
@@ -862,7 +862,7 @@ body {
   display: block;
 }
 
-/* Responsiveness */
+/* Responsiveness - Tablet */
 @media (max-width: 800px) {
   .letter-content {
     font-size: 1.2rem;
@@ -1012,13 +1012,14 @@ body {
   }
 
   .stadium-section {
-    min-height: 350px;
+    min-height: 400px;
     margin-top: 15px;
+    padding-bottom: 50px;
   }
 
   .stadium-content {
-    min-height: 350px;
-    padding: 35px 20px 60px;
+    min-height: 400px;
+    padding: 50px 20px 80px;
   }
 
   .stadium-name {
@@ -1027,6 +1028,253 @@ body {
 
   .stadium-address {
     font-size: 0.9rem;
+  }
+}
+
+/* Responsiveness - Mobile */
+@media (max-width: 520px) {
+  .letter-section {
+    padding: 40px 16px;
+  }
+
+  .letter-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .letter-greeting {
+    font-size: 1.6rem;
+  }
+
+  .letter-highlight {
+    font-size: 1.15rem;
+    padding: 16px 0;
+  }
+
+  .letter-signature {
+    font-size: 1.6rem;
+  }
+
+  .ticket-section {
+    padding: 30px 12px;
+    min-height: auto;
+  }
+
+  .scene {
+    width: calc(100vw - 24px);
+    perspective: 1000px;
+  }
+
+  /* Layout verticale del biglietto per mobile */
+  .ticket {
+    aspect-ratio: auto;
+    border-radius: 16px;
+  }
+
+  .ticket-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  /* Barcode in alto orizzontale su mobile */
+  .barcode-side-panel {
+    flex-direction: column;
+    padding: 12px 16px;
+    border-right: none;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+  }
+
+  .barcode-side-panel .side-barcode {
+    width: 100%;
+    height: 35px;
+    min-height: auto;
+    flex: none;
+  }
+
+  /* Barcode orizzontale */
+  .barcode-side-panel .side-barcode::before {
+    background: 
+      repeating-linear-gradient(
+        90deg,
+        #000 0px, #000 2px,
+        #fff 2px, #fff 3px,
+        #000 3px, #000 4px,
+        #fff 4px, #fff 7px,
+        #000 7px, #000 9px,
+        #fff 9px, #fff 10px,
+        #000 10px, #000 11px,
+        #fff 11px, #fff 14px,
+        #000 14px, #000 17px,
+        #fff 17px, #fff 18px,
+        #000 18px, #000 19px,
+        #fff 19px, #fff 22px,
+        #000 22px, #000 24px,
+        #fff 24px, #fff 26px,
+        #000 26px, #000 28px,
+        #fff 28px, #fff 30px,
+        #000 30px, #000 31px,
+        #fff 31px, #fff 34px,
+        #000 34px, #000 37px,
+        #fff 37px, #fff 38px,
+        #000 38px, #000 40px,
+        #fff 40px, #fff 42px,
+        #000 42px, #000 44px,
+        #fff 44px, #fff 47px,
+        #000 47px, #000 49px,
+        #fff 49px, #fff 50px,
+        #000 50px, #000 52px,
+        #fff 52px, #fff 55px,
+        #000 55px, #000 58px,
+        #fff 58px, #fff 59px,
+        #000 59px, #000 61px,
+        #fff 61px, #fff 64px,
+        #000 64px, #000 66px,
+        #fff 66px, #fff 68px,
+        #000 68px, #000 70px,
+        #fff 70px, #fff 72px,
+        #000 72px, #000 74px,
+        #fff 74px, #fff 76px,
+        #000 76px, #000 78px,
+        #fff 78px, #fff 80px,
+        #000 80px, #000 82px
+      );
+  }
+
+  .barcode-side-panel .ticket-code {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    font-size: 0.5rem;
+    margin-top: 6px;
+  }
+
+  .ticket-header-strip {
+    padding: 12px 14px;
+  }
+
+  .header-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .header-title {
+    font-size: 0.9rem;
+  }
+
+  .header-motto {
+    font-size: 0.65rem;
+  }
+
+  .season-label {
+    font-size: 0.5rem;
+  }
+
+  .season-year {
+    font-size: 0.85rem;
+  }
+
+  .ticket-info-strip {
+    padding: 8px 14px;
+    font-size: 0.6rem;
+    gap: 8px;
+  }
+
+  /* Nascondo i badge laterali su mobile per evitare sovrapposizioni */
+  .liga-body-logo,
+  .ticket-main-body .holo-badge {
+    display: none;
+  }
+
+  .teams-section {
+    padding: 20px 14px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .team-logo {
+    display: none;
+  }
+
+  .teams-names {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .team-name {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .home-name,
+  .away-name {
+    text-align: center;
+  }
+
+  .vs-badge {
+    width: 36px;
+    height: 36px;
+    font-size: 0.65rem;
+  }
+
+  .ticket-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .detail-item {
+    padding: 10px 12px;
+  }
+
+  .detail-label {
+    font-size: 0.55rem;
+  }
+
+  .detail-value {
+    font-size: 0.8rem;
+  }
+
+  .sponsors-bar {
+    gap: 20px;
+    padding: 14px 16px;
+  }
+
+  .sponsor-logo {
+    height: 14px;
+  }
+
+  .sponsor-logo.nike {
+    height: 16px;
+  }
+
+  .sponsor-logo.laliga {
+    height: 18px;
+  }
+
+  /* Stadio su mobile */
+  .stadium-section {
+    min-height: 380px;
+    margin-top: 10px;
+    padding-bottom: 60px;
+  }
+
+  .stadium-content {
+    min-height: 380px;
+    padding: 40px 16px 80px;
+  }
+
+  .stadium-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .stadium-name {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .stadium-address {
+    font-size: 0.85rem;
   }
 }
 
